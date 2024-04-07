@@ -182,31 +182,6 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
   ];
 
   const tableRows = useMemo(() => {
-    const ResultsOrder: React.FC<ResultsOrderProps> = ({
-      order,
-      patientUuid,
-    }) => {
-      return (
-        <Button
-          kind="ghost"
-          onClick={() => {
-            launchOverlay(
-              t("postProcedureResultForm", "Procedure report form"),
-              <PostProcedureForm patientUuid={patientUuid} procedure={order} />
-            );
-          }}
-          renderIcon={(props) => (
-            <Tooltip
-              align="top"
-              label={t("procedureOutcome", "Procedure Outcome")}
-            >
-              <Scalpel size={16} {...props} />
-            </Tooltip>
-          )}
-        />
-      );
-    };
-
     const Instructions: React.FC<InstructionsProps> = ({ order }) => {
       const launchProcedureInstructionsModal = useCallback(() => {
         const dispose = showModal("procedure-instructions-modal", {
@@ -279,10 +254,7 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
           content: (
             <>
               <Instructions order={entry} />
-              <ResultsOrder
-                patientUuid={entry.patient.uuid}
-                order={paginatedWorkListEntries[index]}
-              />
+
               <RejectOrder order={paginatedWorkListEntries[index]} />
               <Button
                 onClick={() =>
